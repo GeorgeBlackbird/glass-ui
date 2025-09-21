@@ -1,0 +1,6 @@
+# Забилженные файлы
+dist/
+coverage/
+
+# Зависимости
+node_modules/
