@@ -1,0 +1,40 @@
+{
+  "name": "glass-ui",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A Glassmorphism UI component library for Vue 3",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/glass-ui.umd.js",
+  "module": "./dist/glass-ui.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/glass-ui.es.js",
+      "require": "./dist/glass-ui.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.21"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "sass": "^1.93.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.6",
+    "vite-plugin-dts": "^4.5.4",
+    "vue-tsc": "^3.0.7"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.37"
+  }
+}
