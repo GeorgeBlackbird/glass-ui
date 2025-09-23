@@ -1,5 +1,5 @@
 <script setup lang="ts">
-//
+import { GButton } from '../lib'
 </script>
 
 <template>
@@ -11,7 +11,19 @@
 
     <section class="component-section">
       <h2>GButton</h2>
-      <div class="component-showcase">Скоро!</div>
+      <div class="component-showcase">
+        <GButton style="height: 120px; width: 300px; font-size: xx-large"
+          >Default</GButton
+        >
+        <GButton theme="secondary">Primary</GButton>
+        <GButton disabled>Disabled</GButton>
+        <GButton theme="primary">
+          <template #icon>
+            <span>🚀</span>
+          </template>
+          With Icon
+        </GButton>
+      </div>
     </section>
   </main>
 </template>
@@ -20,7 +32,7 @@
 body {
   background-color: #1a1a1a;
   color: #f0f0f0;
-  font-family: sans-serif;
+  font-family: 'SF Pro Display';
   margin: 0;
 }
 
@@ -44,7 +56,12 @@ header {
 }
 
 .component-showcase {
-  background-color: #242424;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
   padding: 2rem;
   border-radius: 8px;
   display: flex;
