@@ -8,10 +8,15 @@ import configPrettier from '@vue/eslint-config-prettier'
 
 export default [
   {
+    files: ['**/*.vue'],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
+      },
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.vue'],
       },
     },
   },
