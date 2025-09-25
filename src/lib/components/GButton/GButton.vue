@@ -4,6 +4,7 @@
     :disabled="disabled || loading"
     @click="handleClick"
   >
+    <span ref="ripple" class="g-button__ripple"></span>
     <span v-if="$slots.icon" class="g-button__icon">
       <slot name="icon" />
     </span>
@@ -14,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 type Theme = 'primary' | 'secondary'
 
@@ -43,17 +44,33 @@ const buttonClasses = computed(() => [
   },
 ])
 
+const ripple = ref<HTMLElement | null>(null)
+
 const handleClick = (event: MouseEvent) => {
   if (props.disabled || props.loading) {
     event.preventDefault()
     return
   }
+
+  if (ripple.value) {
+    const rect = ripple.value.parentElement!.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    ripple.value.style.left = `${x}px`
+    ripple.value.style.top = `${y}px`
+
+    ripple.value.classList.remove('g-button__ripple--active')
+    void ripple.value.offsetWidth
+    ripple.value.classList.add('g-button__ripple--active')
+  }
+
   emit('click', event)
 }
 </script>
 
 <style lang="scss">
-@import '@/lib/styles/main.scss';
+@use '@/lib/styles/main';
 
 .g-button {
   @include glassy(16px, $light-glass-color, $border-color-light);
@@ -70,9 +87,30 @@ const handleClick = (event: MouseEvent) => {
   padding: 0.6rem 1.2rem;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s ease;
+  overflow: hidden;
   color: #fff;
   z-index: 0;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 75%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transform: skewX(-25deg);
+    transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
 
   &__text {
     position: relative;
@@ -94,14 +132,30 @@ const handleClick = (event: MouseEvent) => {
   }
 
   &:hover:not(.g-button--disabled):not(.g-button--loading) {
-    background: rgba(255, 255, 255, 0.25);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
+
+    &::before {
+      left: 120%;
+    }
+  }
+
+  &__ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 100px;
+    height: 100px;
+    transform: scale(0);
+    margin-left: -50px;
+    margin-top: -50px;
+
+    &--active {
+      animation: ripple-effect 0.6s linear;
+    }
   }
 
   &:active:not(.g-button--disabled):not(.g-button--loading) {
-    transform: translateY(1px) scale(0.98);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) inset;
+    transform: scale(0.98);
   }
 
   &--disabled {
@@ -122,6 +176,13 @@ const handleClick = (event: MouseEvent) => {
   &--secondary {
     border-color: rgba(255, 255, 255, 0.4);
     color: #fff;
+  }
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
   }
 }
 </style>
