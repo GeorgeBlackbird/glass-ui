@@ -1,0 +1,20 @@
+// цвета
+$light-glass-color: rgba(255, 255, 255, 0.15);
+$dark-glass-color: rgba(0, 0, 0, 0.2);
+$glare: linear-gradient(
+  145deg,
+  rgba(255, 255, 255, 0.6),
+  rgba(255, 255, 255, 0.1)
+);
+
+$action: #007aff;
+$confirmation: #34c759;
+$error: #ff3b30;
+$warning: #ffcc00;
+
+// типографика
+$font-size-base: 16px;
+
+// границы
+$border-radius-base: 12px;
+$border-color-light: rgba(255, 255, 255, 0.2);

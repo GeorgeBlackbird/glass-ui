@@ -1,0 +1,69 @@
+@use 'variables' as *;
+
+@mixin glassy(
+  $blur: 16px,
+  $bg: rgba(255, 255, 255, 0.15),
+  $border: rgba(255, 255, 255, 0.3)
+) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid $border;
+  border-radius: $border-radius-base;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 2px 1px rgba(255, 255, 255, 0.1);
+}
+
+@mixin glass-highlight {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.8),
+      transparent,
+      rgba(255, 255, 255, 0.3)
+    );
+  }
+}
+
+@mixin glass-text($style: 'gradient', $gradient: $glare) {
+  position: relative;
+  z-index: 1;
+
+  @if $style == 'white' {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+  } @else if $style == 'gradient' {
+    background-image: $gradient;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
