@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 @mixin glassy(
   $blur: 16px,
   $bg: rgba(255, 255, 255, 0.15),
@@ -47,5 +49,21 @@
       transparent,
       rgba(255, 255, 255, 0.3)
     );
+  }
+}
+
+@mixin glass-text($style: 'gradient', $gradient: $glare) {
+  position: relative;
+  z-index: 1;
+
+  @if $style == 'white' {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+  } @else if $style == 'gradient' {
+    background-image: $gradient;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }

@@ -17,16 +17,16 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-type Theme = 'primary' | 'secondary'
+type TextStyle = 'white' | 'gradient'
 
 interface Props {
-  theme?: Theme
+  textStyle?: TextStyle
   disabled?: boolean
   loading?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  theme: 'primary',
+  textStyle: 'white',
   disabled: false,
   loading: false,
 })
@@ -37,10 +37,10 @@ const emit = defineEmits<{
 
 const buttonClasses = computed(() => [
   'g-button',
-  `g-button--${props.theme}`,
   {
     'g-button--disabled': props.disabled,
     'g-button--loading': props.loading,
+    [`g-button--text-${props.textStyle}`]: true,
   },
 ])
 
@@ -69,8 +69,8 @@ const handleClick = (event: MouseEvent) => {
 }
 </script>
 
-<style lang="scss">
-@use '@/lib/styles/main';
+<style lang="scss" scoped>
+@use '@/lib/styles/main' as *;
 
 .g-button {
   @include glassy(16px, $light-glass-color, $border-color-light);
@@ -81,7 +81,6 @@ const handleClick = (event: MouseEvent) => {
   justify-content: center;
   gap: 0.5rem;
   font-family: inherit;
-
   font-size: $font-size-base;
   font-weight: 500;
   padding: 0.6rem 1.2rem;
@@ -110,16 +109,6 @@ const handleClick = (event: MouseEvent) => {
     );
     transform: skewX(-25deg);
     transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  &__text {
-    position: relative;
-    z-index: 1;
-    background-image: $glare;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
   }
 
   &__icon {
@@ -176,6 +165,18 @@ const handleClick = (event: MouseEvent) => {
   &--secondary {
     border-color: rgba(255, 255, 255, 0.4);
     color: #fff;
+  }
+
+  &--text-white {
+    .g-button_text {
+      @include glass-text('white');
+    }
+  }
+
+  &--text-gradient {
+    .g-button__text {
+      @include glass-text('gradient');
+    }
   }
 }
 
