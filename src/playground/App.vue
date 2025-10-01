@@ -15,6 +15,7 @@ const showIcon = ref(true)
       <p>Тестирование и отладка компонентов</p>
     </header>
 
+    // eslint-disable-next-line prettier/prettier
     <section class="component-section">
       <h2>GButton</h2>
       <div class="component-controls">
