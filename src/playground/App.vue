@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GButton } from '../lib'
+import { GButton, GInput } from '../lib'
 
+// GButton
 const textStyle = ref<'white' | 'gradient'>('gradient')
 const disabled = ref(false)
 const loading = ref(false)
 const showIcon = ref(true)
+
+// GInput
+const inputValue = ref('')
+const placeholder = ref('Это кастомный GInput.')
+const autoWidth = ref(false)
+const required = ref(false)
+const isInvalid = ref(false)
+const errorMessage = ref('Ошибка заполнения!')
 </script>
 
 <template>
@@ -72,6 +81,89 @@ const showIcon = ref(true)
         </p>
       </div>
     </section>
+
+    <section class="component-section">
+      <h2>GInput</h2>
+      <div class="component-controls">
+        <label>
+          Плейсхолдер:
+          <GInput v-model="placeholder" class="input" />
+        </label>
+        <label>
+          Автоматическая ширина:
+          <input v-model="autoWidth" type="checkbox" />
+        </label>
+        <label>
+          Выключен:
+          <input v-model="disabled" type="checkbox" />
+        </label>
+        <label>
+          Обязателен:
+          <input v-model="required" type="checkbox" />
+        </label>
+        <label>
+          Неправильный ввод:
+          <input v-model="isInvalid" type="checkbox" />
+        </label>
+        <label>
+          Сообщение об ошибке:
+          <GInput v-model="errorMessage" class="input" />
+        </label>
+      </div>
+      <div class="component-showcase">
+        <GInput
+          v-model="inputValue"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :auto-width="autoWidth"
+          :required="required"
+          :is-invalid="isInvalid"
+          :error-message="errorMessage"
+          min-width="50px"
+          max-width="250px"
+        />
+      </div>
+      <div class="component-description">
+        <p>Компонент GInput поддерживает следующие пропсы:</p>
+        <ul>
+          <li>
+            <strong>v-model:</strong> Связывает значение инпута с переменной.
+          </li>
+          <li>
+            <strong>placeholder:</strong> Текст-подсказка (отображается, когда
+            инпут пуст).
+          </li>
+          <li>
+            <strong>disabled:</strong> Отключает инпут (блокирует ввод и
+            взаимодействие).
+          </li>
+          <li>
+            <strong>autoWidth:</strong> Автоматически подстраивает ширину инпута
+            под его содержимое.
+          </li>
+          <li>
+            <strong>required:</strong> Помечает поле как обязательное (валидация
+            срабатывает при потере фокуса).
+          </li>
+          <li>
+            <strong>readonly:</strong> Делает инпут доступным только для чтения.
+          </li>
+          <li>
+            <strong>isInvalid:</strong> Принудительно переводит инпут в
+            состояние ошибки.
+          </li>
+          <li>
+            <strong>errorMessage:</strong> Текст, который отображается под
+            инпутом при ошибке.
+          </li>
+        </ul>
+        <p>
+          Используйте контролы выше, чтобы в реальном времени видеть изменения.
+          Фон с градиентом имитирует окружение для демонстрации эффекта
+          глассморфизма (размытие и прозрачность).
+        </p>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -116,6 +208,7 @@ header {
 
 .component-section {
   margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   h2 {
     font-size: 1.5rem;
@@ -191,5 +284,9 @@ header {
 .smile {
   width: 14px;
   height: 14px;
+}
+
+.input {
+  width: 125px !important;
 }
 </style>
