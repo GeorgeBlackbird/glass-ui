@@ -107,7 +107,7 @@ const errorMessage = ref('Ошибка заполнения!')
         </label>
         <label>
           Сообщение об ошибке:
-          <GInput v-model="errorMessage" />
+          <GInput v-model="errorMessage" class="input" />
         </label>
       </div>
       <div class="component-showcase">
@@ -119,10 +119,49 @@ const errorMessage = ref('Ошибка заполнения!')
           :required="required"
           :is-invalid="isInvalid"
           :error-message="errorMessage"
+          min-width="50px"
+          max-width="250px"
         />
       </div>
       <div class="component-description">
-        ... потом карочи ... апвапвапавпвапвапавпав
+        <p>Компонент GInput поддерживает следующие пропсы:</p>
+        <ul>
+          <li>
+            <strong>v-model:</strong> Связывает значение инпута с переменной.
+          </li>
+          <li>
+            <strong>placeholder:</strong> Текст-подсказка (отображается, когда
+            инпут пуст).
+          </li>
+          <li>
+            <strong>disabled:</strong> Отключает инпут (блокирует ввод и
+            взаимодействие).
+          </li>
+          <li>
+            <strong>autoWidth:</strong> Автоматически подстраивает ширину инпута
+            под его содержимое.
+          </li>
+          <li>
+            <strong>required:</strong> Помечает поле как обязательное (валидация
+            срабатывает при потере фокуса).
+          </li>
+          <li>
+            <strong>readonly:</strong> Делает инпут доступным только для чтения.
+          </li>
+          <li>
+            <strong>isInvalid:</strong> Принудительно переводит инпут в
+            состояние ошибки.
+          </li>
+          <li>
+            <strong>errorMessage:</strong> Текст, который отображается под
+            инпутом при ошибке.
+          </li>
+        </ul>
+        <p>
+          Используйте контролы выше, чтобы в реальном времени видеть изменения.
+          Фон с градиентом имитирует окружение для демонстрации эффекта
+          глассморфизма (размытие и прозрачность).
+        </p>
       </div>
     </section>
   </main>
@@ -169,6 +208,7 @@ header {
 
 .component-section {
   margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   h2 {
     font-size: 1.5rem;
@@ -244,5 +284,9 @@ header {
 .smile {
   width: 14px;
   height: 14px;
+}
+
+.input {
+  width: 125px !important;
 }
 </style>
