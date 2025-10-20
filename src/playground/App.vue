@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GButton, GInput } from '../lib'
+import { GButton, GInput, GTextarea } from '../lib'
 
 // GButton
 const textStyle = ref<'white' | 'gradient'>('gradient')
@@ -15,6 +15,14 @@ const autoWidth = ref(false)
 const required = ref(false)
 const isInvalid = ref(false)
 const errorMessage = ref('Ошибка заполнения!')
+
+// GTextarea
+const textareaValue = ref('')
+const textareaPlaceholder = ref('Это кастомный GTextarea.')
+const autoHeight = ref(false)
+const readonly = ref(false)
+const rows = ref(3)
+const textareaErrorMessage = ref('Ошибка для Textarea!')
 </script>
 
 <template>
@@ -161,6 +169,101 @@ const errorMessage = ref('Ошибка заполнения!')
           Используйте контролы выше, чтобы в реальном времени видеть изменения.
           Фон с градиентом имитирует окружение для демонстрации эффекта
           глассморфизма (размытие и прозрачность).
+        </p>
+      </div>
+    </section>
+
+    <section class="component-section">
+      <h2>GTextarea</h2>
+      <div class="component-controls">
+        <label>
+          Плейсхолдер:
+          <GInput v-model="textareaPlaceholder" class="input" />
+        </label>
+        <label>
+          Автоматическая высота:
+          <input v-model="autoHeight" type="checkbox" />
+        </label>
+        <label>
+          Выключен:
+          <input v-model="disabled" type="checkbox" />
+        </label>
+        <label>
+          Только чтение:
+          <input v-model="readonly" type="checkbox" />
+        </label>
+        <label>
+          Обязателен:
+          <input v-model="required" type="checkbox" />
+        </label>
+        <label>
+          Неправильный ввод:
+          <input v-model="isInvalid" type="checkbox" />
+        </label>
+        <label>
+          Кол-во строк (rows):
+          <input v-model.number="rows" type="number" style="width: 50px" />
+        </label>
+        <label>
+          Сообщение об ошибке:
+          <GInput v-model="textareaErrorMessage" class="input" />
+        </label>
+      </div>
+      <div class="component-showcase">
+        <GTextarea
+          v-model="textareaValue"
+          :placeholder="textareaPlaceholder"
+          :disabled="disabled"
+          :auto-height="autoHeight"
+          :required="required"
+          :readonly="readonly"
+          :is-invalid="isInvalid"
+          :error-message="textareaErrorMessage"
+          :rows="rows"
+          style="width: 30%"
+        />
+      </div>
+      <div class="component-description">
+        <p>Компонент GTextarea поддерживает следующие пропсы:</p>
+        <ul>
+          <li>
+            <strong>v-model:</strong> Связывает значение textarea с переменной.
+          </li>
+          <li>
+            <strong>placeholder:</strong> Текст-подсказка (отображается, когда
+            поле пустое).
+          </li>
+          <li>
+            <strong>disabled:</strong> Отключает textarea (блокирует ввод и
+            взаимодействие).
+          </li>
+          <li>
+            <strong>autoHeight:</strong> Автоматически подстраивает высоту
+            textarea под содержимое.
+          </li>
+          <li>
+            <strong>required:</strong> Помечает поле как обязательное (валидация
+            срабатывает при потере фокуса).
+          </li>
+          <li>
+            <strong>readonly:</strong> Делает поле доступным только для чтения.
+          </li>
+          <li>
+            <strong>isInvalid:</strong> Принудительно переводит поле в состояние
+            ошибки.
+          </li>
+          <li>
+            <strong>errorMessage:</strong> Текст, который отображается под полем
+            при ошибке.
+          </li>
+          <li>
+            <strong>rows:</strong> Задает базовое количество отображаемых строк
+            (по умолчанию 3).
+          </li>
+        </ul>
+        <p>
+          Контролы "Выключен", "Обязателен" и "Неправильный ввод"
+          синхронизированы с GInput для удобства тестирования.
         </p>
       </div>
     </section>
