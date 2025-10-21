@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GButton, GInput, GTextarea } from '../lib'
+import { GButton, GInput, GTextarea, GSelect } from '../lib'
 
 // GButton
 const textStyle = ref<'white' | 'gradient'>('gradient')
 const disabled = ref(false)
 const loading = ref(false)
 const showIcon = ref(true)
+const textStyleOptions = ref([
+  { value: 'white', label: 'Белый' },
+  { value: 'gradient', label: 'Градиент' },
+])
 
 // GInput
 const inputValue = ref('')
@@ -23,6 +27,20 @@ const autoHeight = ref(false)
 const readonly = ref(false)
 const rows = ref(3)
 const textareaErrorMessage = ref('Ошибка для Textarea!')
+
+// GSelect
+const selectValue = ref<string | string[]>('')
+const selectPlaceholder = ref('Выберите опцию...')
+const selectAutoWidth = ref(false)
+const selectRequired = ref(false)
+const selectIsInvalid = ref(false)
+const selectErrorMessage = ref('Это поле обязательно!')
+const selectMultiple = ref(false)
+const options = ref([
+  { value: 'option1', label: 'Опция 1' },
+  { value: 'option2', label: 'Опция 2' },
+  { value: 'option3', label: 'Опция 3' },
+])
 </script>
 
 <template>
@@ -37,10 +55,12 @@ const textareaErrorMessage = ref('Ошибка для Textarea!')
       <div class="component-controls">
         <label>
           Стиль текста:
-          <select v-model="textStyle">
-            <option value="white">Белый</option>
-            <option value="gradient">Градиент</option>
-          </select>
+          <GSelect
+            v-model="textStyle"
+            :options="textStyleOptions"
+            placeholder="Выберите стиль"
+            style="width: 250px"
+          />
         </label>
         <label>
           Выключена:
@@ -264,6 +284,101 @@ const textareaErrorMessage = ref('Ошибка для Textarea!')
         <p>
           Контролы "Выключен", "Обязателен" и "Неправильный ввод"
           синхронизированы с GInput для удобства тестирования.
+        </p>
+      </div>
+    </section>
+
+    <section class="component-section">
+      <h2>GSelect</h2>
+      <div class="component-controls">
+        <label>
+          Плейсхолдер:
+          <GInput v-model="selectPlaceholder" class="input" />
+        </label>
+        <label>
+          Автоматическая ширина:
+          <input v-model="selectAutoWidth" type="checkbox" />
+        </label>
+        <label>
+          Выключен:
+          <input v-model="disabled" type="checkbox" />
+        </label>
+        <label>
+          Обязателен:
+          <input v-model="selectRequired" type="checkbox" />
+        </label>
+        <label>
+          Неправильный ввод:
+          <input v-model="selectIsInvalid" type="checkbox" />
+        </label>
+        <label>
+          Мультивыбор:
+          <input v-model="selectMultiple" type="checkbox" />
+        </label>
+        <label>
+          Сообщение об ошибке:
+          <GInput v-model="selectErrorMessage" class="input" />
+        </label>
+      </div>
+      <div class="component-showcase">
+        <GSelect
+          v-model="selectValue"
+          :options="options"
+          :placeholder="selectPlaceholder"
+          :disabled="disabled"
+          :auto-width="selectAutoWidth"
+          :required="selectRequired"
+          :is-invalid="selectIsInvalid"
+          :error-message="selectErrorMessage"
+          :multiple="selectMultiple"
+          style="width: 180px"
+        />
+      </div>
+      <div class="component-description">
+        <p>Компонент GSelect поддерживает следующие пропсы:</p>
+        <ul>
+          <li>
+            <strong>v-model:</strong> Связывает выбранное значение (или массив
+            значений при multiple) с переменной.
+          </li>
+          <li>
+            <strong>options:</strong> Массив объектов { value, label } для опций
+            выпадающего списка.
+          </li>
+          <li>
+            <strong>placeholder:</strong> Текст-подсказка (отображается, когда
+            ничего не выбрано).
+          </li>
+          <li>
+            <strong>disabled:</strong> Отключает выбор (блокирует
+            взаимодействие).
+          </li>
+          <li>
+            <strong>autoWidth:</strong> Автоматически подстраивает ширину под
+            выбранное значение.
+          </li>
+          <li>
+            <strong>required:</strong> Помечает поле как обязательное (валидация
+            срабатывает при потере фокуса).
+          </li>
+          <li>
+            <strong>isInvalid:</strong> Принудительно переводит поле в состояние
+            ошибки.
+          </li>
+          <li>
+            <strong>errorMessage:</strong> Текст, который отображается под полем
+            при ошибке.
+          </li>
+          <li>
+            <strong>multiple:</strong> Разрешает выбор нескольких опций
+            (возвращает массив).
+          </li>
+        </ul>
+        <p>
+          Используйте контролы выше, чтобы в реальном времени видеть изменения.
+          Фон с градиентом имитирует окружение для демонстрации эффекта
+          глассморфизма (размытие и прозрачность). Дропдаун телепортируется в
+          body для корректного позиционирования.
         </p>
       </div>
     </section>
