@@ -137,9 +137,15 @@ const wrapperClasses = computed(() => [
   },
 ])
 
-const dropdownStyle = computed((): StyleValue => {
+const selectWrapperWidth = ref(0)
+
+const updateDropdownPositionAndSize = () => {
   if (!selectWrapper.value) return {}
+
   const rect = selectWrapper.value.getBoundingClientRect()
+
+  selectWrapperWidth.value = rect.width
+
   return {
     position: 'absolute',
     top: `${rect.bottom + window.scrollY + 4}px`,
@@ -147,12 +153,19 @@ const dropdownStyle = computed((): StyleValue => {
     width: `${rect.width}px`,
     zIndex: 1000,
   } as const
+}
+
+const dropdownStyle = computed((): StyleValue => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _ = selectWrapperWidth.value
+  return updateDropdownPositionAndSize()
 })
 
 const toggleDropdown = () => {
   if (props.disabled || props.readonly) return
   isOpen.value = !isOpen.value
   if (isOpen.value) {
+    updateDropdownPositionAndSize()
     highlightedIndex.value = props.options.findIndex((o) => isSelected(o.value))
     nextTick(() => highlightedRef.value?.focus())
   }
@@ -209,8 +222,15 @@ const handleKeydown = (event: KeyboardEvent) => {
   }
 }
 
-onMounted(() => document.addEventListener('click', handleClickOutside))
-onUnmounted(() => document.removeEventListener('click', handleClickOutside))
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+  window.addEventListener('resize', updateDropdownPositionAndSize)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('resize', updateDropdownPositionAndSize)
+})
 </script>
 
 <style scoped lang="scss">
