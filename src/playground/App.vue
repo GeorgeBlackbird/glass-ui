@@ -37,7 +37,7 @@ const selectIsInvalid = ref(false)
 const selectErrorMessage = ref('Это поле обязательно!')
 const selectMultiple = ref(false)
 const options = ref([
-  { value: 'option1', label: 'Опция 1' },
+  { value: 'option1', label: 'Очень длинная опция. Что скажешь?' },
   { value: 'option2', label: 'Опция 2' },
   { value: 'option3', label: 'Опция 3' },
 ])
@@ -331,7 +331,6 @@ const options = ref([
           :is-invalid="selectIsInvalid"
           :error-message="selectErrorMessage"
           :multiple="selectMultiple"
-          style="width: 180px"
         />
       </div>
       <div class="component-description">

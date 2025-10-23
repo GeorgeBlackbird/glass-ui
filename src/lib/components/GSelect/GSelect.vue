@@ -9,7 +9,6 @@
       :readonly="true"
       :is-invalid="showError || isInvalid"
       :error-message="errorMessage"
-      style="width: 100%"
       @blur="handleBlur"
     />
 
@@ -134,6 +133,7 @@ const wrapperClasses = computed(() => [
     'g-select-wrapper--disabled': props.disabled || props.readonly,
     'g-select-wrapper-error': showError.value || props.isInvalid,
     'g-select-wrapper--open': isOpen.value,
+    'g-select-wrapper--auto-width': props.autoWidth,
   },
 ])
 
@@ -224,6 +224,11 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
   &--disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  &--auto-width {
+    width: auto;
+    display: inline-block;
   }
 
   .g-select__arrow {
