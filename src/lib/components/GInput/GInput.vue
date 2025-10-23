@@ -7,6 +7,7 @@
       :required="required"
       :readonly="readonly"
       :placeholder="placeholder"
+      size="1"
       @blur="handleBlur"
     />
 
@@ -129,6 +130,7 @@ const handleBlur = () => {
     .g-input__sizer {
       visibility: hidden;
       white-space: pre;
+      width: min-content;
     }
   }
 

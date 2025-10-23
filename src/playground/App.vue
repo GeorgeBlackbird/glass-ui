@@ -14,7 +14,7 @@ const textStyleOptions = ref([
 
 // GInput
 const inputValue = ref('')
-const placeholder = ref('Это кастомный GInput.')
+const placeholder = ref('Вводите...')
 const autoWidth = ref(false)
 const required = ref(false)
 const isInvalid = ref(false)
@@ -30,7 +30,7 @@ const textareaErrorMessage = ref('Ошибка для Textarea!')
 
 // GSelect
 const selectValue = ref<string | string[]>('')
-const selectPlaceholder = ref('Выберите опцию...')
+const selectPlaceholder = ref('Выберитe...')
 const selectAutoWidth = ref(false)
 const selectRequired = ref(false)
 const selectIsInvalid = ref(false)
@@ -59,7 +59,7 @@ const options = ref([
             v-model="textStyle"
             :options="textStyleOptions"
             placeholder="Выберите стиль"
-            style="width: 250px"
+            class="input"
           />
         </label>
         <label>
@@ -505,6 +505,6 @@ header {
 }
 
 .input {
-  width: 125px !important;
+  width: 250px !important;
 }
 </style>
