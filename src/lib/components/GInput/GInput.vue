@@ -80,7 +80,7 @@ const handleBlur = () => {
     box-shadow 0.3s ease,
     border-color 0.3s ease;
   max-width: 100%;
-  width: 180px;
+  width: 100%;
 
   &:focus-within {
     border-color: rgba(255, 255, 255, 0.7);

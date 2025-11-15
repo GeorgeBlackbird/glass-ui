@@ -144,6 +144,7 @@ const options = ref([
           :placeholder="placeholder"
           :disabled="disabled"
           :auto-width="autoWidth"
+          :style="autoWidth ? '' : 'width: 180px'"
           :required="required"
           :is-invalid="isInvalid"
           :error-message="errorMessage"
