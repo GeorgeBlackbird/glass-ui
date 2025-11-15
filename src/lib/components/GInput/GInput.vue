@@ -7,6 +7,7 @@
       :required="required"
       :readonly="readonly"
       :placeholder="placeholder"
+      size="1"
       @blur="handleBlur"
     />
 
@@ -79,7 +80,7 @@ const handleBlur = () => {
     box-shadow 0.3s ease,
     border-color 0.3s ease;
   max-width: 100%;
-  width: 180px;
+  width: 100%;
 
   &:focus-within {
     border-color: rgba(255, 255, 255, 0.7);
@@ -129,6 +130,7 @@ const handleBlur = () => {
     .g-input__sizer {
       visibility: hidden;
       white-space: pre;
+      width: min-content;
     }
   }
 
