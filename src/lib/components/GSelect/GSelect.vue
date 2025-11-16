@@ -49,6 +49,7 @@
             ]"
             tabindex="0"
             :aria-selected="isSelected(option.value)"
+            :style="isOpen ? 'cursor: pointer' : 'cursor: default'"
             @click="selectOption(option.value)"
           >
             {{ option.label }}
@@ -172,6 +173,8 @@ const toggleDropdown = () => {
 }
 
 const selectOption = (value: string | number) => {
+  if (!isOpen.value) return
+
   if (props.multiple) {
     if (!Array.isArray(model.value)) model.value = []
     const index = model.value.indexOf(value)
@@ -207,6 +210,8 @@ const handleClickOutside = (event: MouseEvent) => {
 }
 
 const handleKeydown = (event: KeyboardEvent) => {
+  if (!isOpen.value) return
+
   if (event.key === 'ArrowDown') {
     highlightedIndex.value = (highlightedIndex.value + 1) % props.options.length
     nextTick(() => highlightedRef.value?.focus())
