@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GButton, GInput, GTextarea, GSelect, GCard } from '../lib'
+import { GButton, GInput, GTextarea, GSelect, GCard, GContainer } from '../lib'
 
 // GButton
 const textStyle = ref<'white' | 'gradient'>('gradient')
@@ -54,6 +54,18 @@ const cardHeaderSlot = ref('Заголовок GCard')
 const cardBodySlot = ref(
   'Это основной текст карточки, демонстрирующий возможности компонента GCard в UI Kit.'
 )
+
+// GContainer
+const containerPadding = ref<string>('md')
+const containerBlur = ref(16)
+const containerBgOpacity = ref(0.15)
+const containerTag = ref('div')
+const paddingOptions = ref([
+  { value: 'none', label: 'None (0)' },
+  { value: 'sm', label: 'Small (1rem)' },
+  { value: 'md', label: 'Medium (1.5rem)' },
+  { value: 'lg', label: 'Large (2rem)' },
+])
 </script>
 
 <template>
@@ -500,6 +512,86 @@ const cardBodySlot = ref(
           </li>
           <li><strong>#header:</strong> Для заголовка карточки.</li>
           <li><strong>#default:</strong> Для основного содержимого.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="component-section">
+      <h2>GContainer</h2>
+      <div class="component-controls">
+        <label>
+          Тег (tag):
+          <GInput
+            v-model="containerTag"
+            class="input"
+            style="width: 100px !important"
+          />
+        </label>
+        <label>
+          Отступ (paddingSize):
+          <GSelect
+            v-model="containerPadding"
+            :options="paddingOptions"
+            class="input"
+          />
+        </label>
+        <label>
+          Размытие (blur):
+          <input
+            v-model.number="containerBlur"
+            type="number"
+            style="width: 60px"
+          />
+        </label>
+        <label>
+          Прозрачность (bgOpacity):
+          <input
+            v-model.number="containerBgOpacity"
+            type="number"
+            step="0.05"
+            min="0"
+            max="1"
+            style="width: 60px"
+          />
+        </label>
+      </div>
+      <div class="component-showcase">
+        <GContainer
+          :tag="containerTag"
+          :padding-size="containerPadding"
+          :blur="containerBlur"
+          :bg-opacity="containerBgOpacity"
+          style="width: 80%"
+        >
+          <template v-if="containerTag === 'details'">
+            <summary style="cursor: pointer">Это тег &lt;details&gt;</summary>
+            <p style="margin-top: 1rem">Какой-то скрытый по умолчанию текст.</p>
+          </template>
+          <template v-else>
+            <h3>Контент внутри GContainer</h3>
+            <p>
+              Это просто параграф. Компонент GContainer используется как
+              универсальная "стеклянная" обертка.
+            </p>
+          </template>
+        </GContainer>
+      </div>
+      <div class="component-description">
+        <p>
+          Компонент GContainer — это базовый строительный блок для создания
+          "стеклянных" панелей и секций.
+        </p>
+        <ul>
+          <li>
+            <strong>tag:</strong> Семантический HTML-тег для корневого элемента
+            (например, 'div', 'section', 'aside', 'details').
+          </li>
+          <li>
+            <strong>paddingSize:</strong> Управляет внутренними отступами
+            ('none', 'sm', 'md', 'lg').
+          </li>
+          <li><strong>blur:</strong> Степень размытия фона (в пикселях).</li>
+          <li><strong>bgOpacity:</strong> Прозрачность фона (от 0 до 1).</li>
         </ul>
       </div>
     </section>
