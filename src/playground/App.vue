@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GButton, GInput, GTextarea, GSelect } from '../lib'
+import { GButton, GInput, GTextarea, GSelect, GCard } from '../lib'
 
 // GButton
 const textStyle = ref<'white' | 'gradient'>('gradient')
@@ -41,6 +41,19 @@ const options = ref([
   { value: 'option2', label: 'Опция 2' },
   { value: 'option3', label: 'Опция 3' },
 ])
+
+// GCard
+const cardImgSrc = ref('https://picsum.photos/400/220')
+const cardImgAlt = ref('Пример изображения')
+const cardBlur = ref(20)
+const cardBgOpacity = ref(0.1)
+const cardHeaderTextStyle = ref<'white' | 'gradient'>('gradient')
+const cardBodyTextStyle = ref<'white' | 'gradient'>('white')
+const cardShowImageSlot = ref(false)
+const cardHeaderSlot = ref('Заголовок GCard')
+const cardBodySlot = ref(
+  'Это основной текст карточки, демонстрирующий возможности компонента GCard в UI Kit.'
+)
 </script>
 
 <template>
@@ -380,6 +393,114 @@ const options = ref([
           глассморфизма (размытие и прозрачность). Дропдаун телепортируется в
           body для корректного позиционирования.
         </p>
+      </div>
+    </section>
+
+    <section class="component-section">
+      <h2>GCard</h2>
+      <div class="component-controls">
+        <label>
+          Image URL (imgSrc):
+          <GInput v-model="cardImgSrc" class="input" />
+        </label>
+        <label>
+          Размытие (blur):
+          <input v-model.number="cardBlur" type="number" style="width: 60px" />
+        </label>
+        <label>
+          Прозрачность (bgOpacity):
+          <input
+            v-model.number="cardBgOpacity"
+            type="number"
+            step="0.05"
+            min="0"
+            max="1"
+            style="width: 60px"
+          />
+        </label>
+        <label>
+          Стиль заголовка:
+          <GSelect
+            v-model="cardHeaderTextStyle"
+            :options="textStyleOptions"
+            class="input"
+          />
+        </label>
+        <label>
+          Стиль текста:
+          <GSelect
+            v-model="cardBodyTextStyle"
+            :options="textStyleOptions"
+            class="input"
+          />
+        </label>
+        <label>
+          Кастомный слот #image:
+          <input v-model="cardShowImageSlot" type="checkbox" />
+        </label>
+        <label>
+          Текст заголовка (#header):
+          <GInput v-model="cardHeaderSlot" class="input" />
+        </label>
+        <label>
+          Основной текст (#default):
+          <GInput v-model="cardBodySlot" class="input" />
+        </label>
+      </div>
+      <div class="component-showcase" style="align-items: flex-start">
+        <GCard
+          :img-src="!cardShowImageSlot ? cardImgSrc : undefined"
+          :img-alt="cardImgAlt"
+          :blur="cardBlur"
+          :bg-opacity="cardBgOpacity"
+          :header-text-style="cardHeaderTextStyle"
+          :body-text-style="cardBodyTextStyle"
+          style="width: 320px"
+        >
+          <template v-if="cardShowImageSlot" #image>
+            <img
+              src="https://picsum.photos/400/221"
+              alt="Кастомный слот"
+              style="border-bottom: 1px solid rgba(255, 255, 255, 0.2)"
+            />
+          </template>
+          <template #header>
+            <h2>{{ cardHeaderSlot }}</h2>
+          </template>
+          <template #default>
+            <p>{{ cardBodySlot }}</p>
+          </template>
+        </GCard>
+      </div>
+      <div class="component-description">
+        <p>Компонент GCard поддерживает следующие пропсы:</p>
+        <ul>
+          <li>
+            <strong>imgSrc:</strong> URL изображения для карточки (игнорируется,
+            если используется слот #image).
+          </li>
+          <li><strong>imgAlt:</strong> Атрибут 'alt' для изображения.</li>
+          <li><strong>blur:</strong> Степень размытия фона (в пикселях).</li>
+          <li><strong>bgOpacity:</strong> Прозрачность фона (от 0 до 1).</li>
+          <li>
+            <strong>headerTextStyle:</strong> 'white' или 'gradient' для
+            заголовка.
+          </li>
+          <li>
+            <strong>bodyTextStyle:</strong> 'white' или 'gradient' для основного
+            текста.
+          </li>
+        </ul>
+        <p>Компонент также поддерживает 3 слота:</p>
+        <ul>
+          <li>
+            <strong>#image:</strong> Для кастомного контента изображения
+            (например, тег <code>&lt;picture&gt;</code>). Перекрывает
+            <code>imgSrc</code>.
+          </li>
+          <li><strong>#header:</strong> Для заголовка карточки.</li>
+          <li><strong>#default:</strong> Для основного содержимого.</li>
+        </ul>
       </div>
     </section>
   </main>
