@@ -82,23 +82,27 @@ const cardStyle = computed(() => ({
   }
 
   &__image {
-    width: 100%;
-    height: auto;
+    width: auto;
+    padding: 1.25rem 1.25rem 0 1.25rem;
 
     img,
     :deep(img) {
       display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      border-radius: $border-radius-base;
+      border: 1px solid $border-color-light;
       object-fit: cover;
+      overflow: hidden;
     }
   }
 
   &__content {
-    padding: 1.25rem;
+    padding: 0 1.25rem 1.25rem 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.15rem;
   }
 
   &__header {
