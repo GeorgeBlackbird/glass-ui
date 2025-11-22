@@ -10,6 +10,7 @@ import {
   GHeader,
   GFooter,
   GModal,
+  GCheckbox,
 } from '../lib'
 
 // GButton
@@ -35,7 +36,6 @@ const textareaValue = ref('')
 const textareaPlaceholder = ref('Это кастомный GTextarea.')
 const autoHeight = ref(false)
 const readonly = ref(false)
-const rows = ref(3)
 const textareaErrorMessage = ref('Ошибка для Textarea!')
 
 // GSelect
@@ -82,6 +82,11 @@ const showModal = ref(false)
 const modalCloseOutside = ref(true)
 const modalCloseEsc = ref(true)
 const modalShowCloseBtn = ref(true)
+
+// GCheckbox
+const checkboxValue = ref(false)
+const checkboxGroup = ref<string[]>(['vue'])
+const checkboxDisabled = ref(false)
 </script>
 
 <template>
@@ -138,16 +143,13 @@ const modalShowCloseBtn = ref(true)
           />
         </label>
         <label>
-          Выключена:
-          <input v-model="disabled" type="checkbox" />
+          <GCheckbox v-model="disabled">Выключена</GCheckbox>
         </label>
         <label>
-          Загрузка:
-          <input v-model="loading" type="checkbox" />
+          <GCheckbox v-model="loading">Загрузка</GCheckbox>
         </label>
         <label>
-          Иконка:
-          <input v-model="showIcon" type="checkbox" />
+          <GCheckbox v-model="showIcon">Иконка</GCheckbox>
         </label>
       </div>
       <div class="component-showcase">
@@ -193,20 +195,16 @@ const modalShowCloseBtn = ref(true)
           <GInput v-model="placeholder" class="input" />
         </label>
         <label>
-          Автоматическая ширина:
-          <input v-model="autoWidth" type="checkbox" />
+          <GCheckbox v-model="autoWidth">Автоматическая ширина</GCheckbox>
         </label>
         <label>
-          Выключен:
-          <input v-model="disabled" type="checkbox" />
+          <GCheckbox v-model="disabled">Выключен</GCheckbox>
         </label>
         <label>
-          Обязателен:
-          <input v-model="required" type="checkbox" />
+          <GCheckbox v-model="required">Обязателен</GCheckbox>
         </label>
         <label>
-          Неправильный ввод:
-          <input v-model="isInvalid" type="checkbox" />
+          <GCheckbox v-model="isInvalid">Неправильный ввод</GCheckbox>
         </label>
         <label>
           Сообщение об ошибке:
@@ -277,28 +275,19 @@ const modalShowCloseBtn = ref(true)
           <GInput v-model="textareaPlaceholder" class="input" />
         </label>
         <label>
-          Автоматическая высота:
-          <input v-model="autoHeight" type="checkbox" />
+          <GCheckbox v-model="autoHeight">Автоматическая высота</GCheckbox>
         </label>
         <label>
-          Выключен:
-          <input v-model="disabled" type="checkbox" />
+          <GCheckbox v-model="disabled">Выключен</GCheckbox>
         </label>
         <label>
-          Только чтение:
-          <input v-model="readonly" type="checkbox" />
+          <GCheckbox v-model="readonly">Только чтение</GCheckbox>
         </label>
         <label>
-          Обязателен:
-          <input v-model="required" type="checkbox" />
+          <GCheckbox v-model="required">Обязателен</GCheckbox>
         </label>
         <label>
-          Неправильный ввод:
-          <input v-model="isInvalid" type="checkbox" />
-        </label>
-        <label>
-          Кол-во строк (rows):
-          <input v-model.number="rows" type="number" style="width: 50px" />
+          <GCheckbox v-model="isInvalid">Неправильный ввод</GCheckbox>
         </label>
         <label>
           Сообщение об ошибке:
@@ -315,7 +304,7 @@ const modalShowCloseBtn = ref(true)
           :readonly="readonly"
           :is-invalid="isInvalid"
           :error-message="textareaErrorMessage"
-          :rows="rows"
+          rows="3"
           style="width: 30%"
         />
       </div>
@@ -372,24 +361,19 @@ const modalShowCloseBtn = ref(true)
           <GInput v-model="selectPlaceholder" class="input" />
         </label>
         <label>
-          Автоматическая ширина:
-          <input v-model="selectAutoWidth" type="checkbox" />
+          <GCheckbox v-model="selectAutoWidth">Автоматическая ширина</GCheckbox>
         </label>
         <label>
-          Выключен:
-          <input v-model="disabled" type="checkbox" />
+          <GCheckbox v-model="disabled">Выключен</GCheckbox>
         </label>
         <label>
-          Обязателен:
-          <input v-model="selectRequired" type="checkbox" />
+          <GCheckbox v-model="selectRequired">Обязателен</GCheckbox>
         </label>
         <label>
-          Неправильный ввод:
-          <input v-model="selectIsInvalid" type="checkbox" />
+          <GCheckbox v-model="selectIsInvalid">Неправильный ввод</GCheckbox>
         </label>
         <label>
-          Мультивыбор:
-          <input v-model="selectMultiple" type="checkbox" />
+          <GCheckbox v-model="selectMultiple">Мультивыбор</GCheckbox>
         </label>
         <label>
           Сообщение об ошибке:
@@ -466,21 +450,6 @@ const modalShowCloseBtn = ref(true)
           <GInput v-model="cardImgSrc" class="input" />
         </label>
         <label>
-          Размытие (blur):
-          <input v-model.number="cardBlur" type="number" style="width: 60px" />
-        </label>
-        <label>
-          Прозрачность (bgOpacity):
-          <input
-            v-model.number="cardBgOpacity"
-            type="number"
-            step="0.05"
-            min="0"
-            max="1"
-            style="width: 60px"
-          />
-        </label>
-        <label>
           Стиль заголовка:
           <GSelect
             v-model="cardHeaderTextStyle"
@@ -497,8 +466,9 @@ const modalShowCloseBtn = ref(true)
           />
         </label>
         <label>
-          Кастомный слот #image:
-          <input v-model="cardShowImageSlot" type="checkbox" />
+          <GCheckbox v-model="cardShowImageSlot"
+            >Кастомный слот #image</GCheckbox
+          >
         </label>
         <label>
           Текст заголовка (#header):
@@ -585,25 +555,6 @@ const modalShowCloseBtn = ref(true)
             class="input"
           />
         </label>
-        <label>
-          Размытие (blur):
-          <input
-            v-model.number="containerBlur"
-            type="number"
-            style="width: 60px"
-          />
-        </label>
-        <label>
-          Прозрачность (bgOpacity):
-          <input
-            v-model.number="containerBgOpacity"
-            type="number"
-            step="0.05"
-            min="0"
-            max="1"
-            style="width: 60px"
-          />
-        </label>
       </div>
       <div class="component-showcase">
         <GContainer
@@ -650,16 +601,15 @@ const modalShowCloseBtn = ref(true)
       <h2>GModal</h2>
       <div class="component-controls">
         <label>
-          Закрывать по клику вне:
-          <input v-model="modalCloseOutside" type="checkbox" />
+          <GCheckbox v-model="modalCloseOutside"
+            >Закрывать по клику вне</GCheckbox
+          >
         </label>
         <label>
-          Закрывать по Esc:
-          <input v-model="modalCloseEsc" type="checkbox" />
+          <GCheckbox v-model="modalCloseEsc">Закрывать по Esc</GCheckbox>
         </label>
         <label>
-          Крестик:
-          <input v-model="modalShowCloseBtn" type="checkbox" />
+          <GCheckbox v-model="modalShowCloseBtn">Крестик</GCheckbox>
         </label>
       </div>
 
@@ -709,6 +659,80 @@ const modalShowCloseBtn = ref(true)
           GModal использует Teleport для рендеринга в body. Поддерживает
           блокировку скролла, анимации появления и закрытие по Esc/клику вне
           области.
+        </p>
+      </div>
+    </section>
+
+    <section class="component-section">
+      <h2>GCheckbox</h2>
+      <div class="component-controls">
+        <label>
+          <GCheckbox v-model="checkboxDisabled">Задизейблить</GCheckbox>
+        </label>
+      </div>
+
+      <div
+        class="component-showcase"
+        style="flex-direction: column; gap: 2rem; align-items: flex-start"
+      >
+        <div>
+          <h4
+            style="
+              margin: 0 0 1rem 0;
+              color: white;
+              font-weight: normal;
+              opacity: 0.7;
+            "
+          >
+            Boolean Model: {{ checkboxValue }}
+          </h4>
+          <GCheckbox v-model="checkboxValue" :disabled="checkboxDisabled">
+            Согласен с условиями "Swag Policy"
+          </GCheckbox>
+        </div>
+
+        <div>
+          <h4
+            style="
+              margin: 0 0 1rem 0;
+              color: white;
+              font-weight: normal;
+              opacity: 0.7;
+            "
+          >
+            Array Model: {{ checkboxGroup }}
+          </h4>
+          <div style="display: flex; gap: 1.5rem">
+            <GCheckbox
+              v-model="checkboxGroup"
+              value="html"
+              :disabled="checkboxDisabled"
+            >
+              HTML5
+            </GCheckbox>
+            <GCheckbox
+              v-model="checkboxGroup"
+              value="scss"
+              :disabled="checkboxDisabled"
+            >
+              SCSS
+            </GCheckbox>
+            <GCheckbox
+              v-model="checkboxGroup"
+              value="vue"
+              :disabled="checkboxDisabled"
+            >
+              Vue 3
+            </GCheckbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-description">
+        <p>
+          GCheckbox поддерживает работу как с <code>boolean</code>, так и с
+          массивами. Использует SVG-анимацию <code>stroke-dashoffset</code> для
+          отрисовки галочки.
         </p>
       </div>
     </section>
@@ -811,17 +835,13 @@ header {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
 
-    select,
-    input[type='checkbox'] {
+    select {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
       padding: 0.25rem 0.5rem;
       border-radius: 4px;
       cursor: pointer;
-    }
-
-    select {
       appearance: none;
     }
   }
