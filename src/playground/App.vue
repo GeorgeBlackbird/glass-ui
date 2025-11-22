@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GButton, GInput, GTextarea, GSelect, GCard, GContainer } from '../lib'
+import {
+  GButton,
+  GInput,
+  GTextarea,
+  GSelect,
+  GCard,
+  GContainer,
+  GHeader,
+} from '../lib'
 
 // GButton
 const textStyle = ref<'white' | 'gradient'>('gradient')
@@ -70,10 +78,49 @@ const paddingOptions = ref([
 
 <template>
   <main class="playground-container">
-    <header>
-      <h1>GlassUI Playground</h1>
-      <p>Тестирование и отладка компонентов</p>
-    </header>
+    <GHeader :sticky="true" style="margin-bottom: 2rem">
+      <template #brand>
+        <span
+          style="
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          "
+        >
+          🧊 GlassUI
+          <span style="opacity: 0.5; font-weight: 400; font-size: 1em"
+            >Playground</span
+          >
+        </span>
+      </template>
+
+      <template #nav>
+        <a href="#" class="nav-link active">Компоненты</a>
+        <a href="#" class="nav-link">миксины или чо</a>
+        <a href="#" class="nav-link">кароче хз пока</a>
+      </template>
+
+      <template #actions>
+        <a href="https://github.com/GeorgeBlackbird/glass-ui" target="_blank">
+          <GButton style="font-size: 0.85rem; padding: 0.4rem 1rem">
+            <template #icon>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.655-3.81-1.275-4.065-1.92-.15-.36-.75-1.485-1.29-1.785-.45-.24-1.095-.825-.015-.84 1.02-.015 1.74.945 1.98 1.155 1.155 1.98 3.03 1.41 3.765 1.08.12-.84.45-1.41.825-1.74-2.655-.3-5.445-1.32-5.445-5.91 0-1.305.465-2.385 1.23-2.94-.12-.3-.54-1.41.12-3.21 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.545 3.3-1.23 3.3-1.23.66 1.8.24 2.91.12 3.21.765.555 1.23 1.635 1.23 2.94 0 4.605-2.805 5.61-5.475 5.91.465.405.885 1.2.885 2.415 0 1.74-.015 3.15-.015 3.57 0 .315.225.69.84.57A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"
+                />
+              </svg>
+            </template>
+            GitHub
+          </GButton>
+        </a>
+      </template>
+    </GHeader>
 
     <section class="component-section">
       <h2>GButton</h2>
@@ -719,5 +766,25 @@ header {
 
 .input {
   width: 250px !important;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 6px;
+
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &.active {
+    color: #fff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  }
 }
 </style>
