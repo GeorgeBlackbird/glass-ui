@@ -7,20 +7,40 @@
   "files": [
     "dist"
   ],
+  "author": "George Blackbird",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GeorgeBlackbird/glass-ui"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui",
+    "glassmorphism"
+  ],
+  "homepage": "https://github.com/GeorgeBlackbird/glass-ui#",
+  "bugs": "https://github.com/GeorgeBlackbird/glass-ui/issues",
   "main": "./dist/glass-ui.umd.js",
   "module": "./dist/glass-ui.es.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/glass-ui.es.js",
       "require": "./dist/glass-ui.umd.js"
-    }
+    },
+    "./styles": "./dist/style.css",
+    "./styles/*": "./src/lib/styles/*"
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "npm run build",
+    "release": "npm version patch && npm publish"
   },
   "dependencies": {
     "vue": "^3.2.37"
