@@ -9,6 +9,7 @@ import {
   GContainer,
   GHeader,
   GFooter,
+  GModal,
 } from '../lib'
 
 // GButton
@@ -75,6 +76,12 @@ const paddingOptions = ref([
   { value: 'md', label: 'Medium (1.5rem)' },
   { value: 'lg', label: 'Large (2rem)' },
 ])
+
+// GModal
+const showModal = ref(false)
+const modalCloseOutside = ref(true)
+const modalCloseEsc = ref(true)
+const modalShowCloseBtn = ref(true)
 </script>
 
 <template>
@@ -636,6 +643,73 @@ const paddingOptions = ref([
           <li><strong>blur:</strong> Степень размытия фона (в пикселях).</li>
           <li><strong>bgOpacity:</strong> Прозрачность фона (от 0 до 1).</li>
         </ul>
+      </div>
+    </section>
+
+    <section class="component-section">
+      <h2>GModal</h2>
+      <div class="component-controls">
+        <label>
+          Закрывать по клику вне:
+          <input v-model="modalCloseOutside" type="checkbox" />
+        </label>
+        <label>
+          Закрывать по Esc:
+          <input v-model="modalCloseEsc" type="checkbox" />
+        </label>
+        <label>
+          Крестик:
+          <input v-model="modalShowCloseBtn" type="checkbox" />
+        </label>
+      </div>
+
+      <div class="component-showcase">
+        <GButton text-style="white" @click="showModal = true">
+          Открыть модальное окно
+        </GButton>
+      </div>
+
+      <GModal
+        v-model="showModal"
+        :click-outside="modalCloseOutside"
+        :close-on-esc="modalCloseEsc"
+        :close-button="modalShowCloseBtn"
+        width="400px"
+      >
+        <h2 style="margin-top: 0; color: white">Подтверждение</h2>
+        <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6">
+          Вы действительно хотите выполнить это действие? Эффект стекла
+          применяется поверх всего интерфейса.
+        </p>
+
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+          "
+        >
+          <GButton
+            text-style="white"
+            style="
+              background: transparent;
+              border: 1px solid rgba(255, 255, 255, 0.2);
+            "
+            @click="showModal = false"
+          >
+            Отмена
+          </GButton>
+          <GButton @click="showModal = false"> Принять </GButton>
+        </div>
+      </GModal>
+
+      <div class="component-description">
+        <p>
+          GModal использует Teleport для рендеринга в body. Поддерживает
+          блокировку скролла, анимации появления и закрытие по Esc/клику вне
+          области.
+        </p>
       </div>
     </section>
   </main>
