@@ -1,7 +1,7 @@
 {
-  "name": "glass-ui",
+  "name": "@georgeblackbird/glass-ui",
   "private": false,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "A Glassmorphism UI component library for Vue 3",
   "files": [
@@ -31,8 +31,8 @@
       "import": "./dist/glass-ui.es.js",
       "require": "./dist/glass-ui.umd.js"
     },
-    "./styles": "./dist/style.css",
-    "./styles/*": "./src/lib/styles/*"
+    "./glass-ui.css": "./dist/glass-ui.css",
+    "./dist/glass-ui.css": "./dist/glass-ui.css"
   },
   "scripts": {
     "dev": "vite",
