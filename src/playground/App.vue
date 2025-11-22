@@ -8,6 +8,7 @@ import {
   GCard,
   GContainer,
   GHeader,
+  GFooter,
   GModal,
 } from '../lib'
 
@@ -84,51 +85,46 @@ const modalShowCloseBtn = ref(true)
 </script>
 
 <template>
-  <main class="playground-container">
-    <GHeader :sticky="true" style="margin-bottom: 2rem">
-      <template #brand>
-        <span
-          style="
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-          "
+  <GHeader :sticky="true" style="margin: 0 auto; padding: 2rem; width: 95vw">
+    <template #brand>
+      <span
+        style="
+          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        "
+      >
+        🧊 GlassUI
+        <span style="opacity: 0.5; font-weight: 400; font-size: 1em"
+          >Playground</span
         >
-          🧊 GlassUI
-          <span style="opacity: 0.5; font-weight: 400; font-size: 1em"
-            >Playground</span
-          >
-        </span>
-      </template>
+      </span>
+    </template>
 
-      <template #nav>
-        <a href="#" class="nav-link active">Компоненты</a>
-        <a href="#" class="nav-link">миксины или чо</a>
-        <a href="#" class="nav-link">кароче хз пока</a>
-      </template>
+    <template #nav>
+      <a href="#" class="nav-link active">Компоненты</a>
+      <a href="#" class="nav-link">under construction</a>
+      <a href="#" class="nav-link">under construction</a>
+    </template>
 
-      <template #actions>
-        <a href="https://github.com/GeorgeBlackbird/glass-ui" target="_blank">
-          <GButton style="font-size: 0.85rem; padding: 0.4rem 1rem">
-            <template #icon>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.655-3.81-1.275-4.065-1.92-.15-.36-.75-1.485-1.29-1.785-.45-.24-1.095-.825-.015-.84 1.02-.015 1.74.945 1.98 1.155 1.155 1.98 3.03 1.41 3.765 1.08.12-.84.45-1.41.825-1.74-2.655-.3-5.445-1.32-5.445-5.91 0-1.305.465-2.385 1.23-2.94-.12-.3-.54-1.41.12-3.21 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.545 3.3-1.23 3.3-1.23.66 1.8.24 2.91.12 3.21.765.555 1.23 1.635 1.23 2.94 0 4.605-2.805 5.61-5.475 5.91.465.405.885 1.2.885 2.415 0 1.74-.015 3.15-.015 3.57 0 .315.225.69.84.57A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"
-                />
-              </svg>
-            </template>
-            GitHub
-          </GButton>
-        </a>
-      </template>
-    </GHeader>
+    <template #actions>
+      <a href="https://github.com/GeorgeBlackbird/glass-ui" target="_blank">
+        <GButton style="font-size: 0.85rem; padding: 0.4rem 1rem">
+          <template #icon>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.655-3.81-1.275-4.065-1.92-.15-.36-.75-1.485-1.29-1.785-.45-.24-1.095-.825-.015-.84 1.02-.015 1.74.945 1.98 1.155 1.155 1.98 3.03 1.41 3.765 1.08.12-.84.45-1.41.825-1.74-2.655-.3-5.445-1.32-5.445-5.91 0-1.305.465-2.385 1.23-2.94-.12-.3-.54-1.41.12-3.21 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.545 3.3-1.23 3.3-1.23.66 1.8.24 2.91.12 3.21.765.555 1.23 1.635 1.23 2.94 0 4.605-2.805 5.61-5.475 5.91.465.405.885 1.2.885 2.415 0 1.74-.015 3.15-.015 3.57 0 .315.225.69.84.57A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+          </template>
+          GitHub
+        </GButton>
+      </a>
+    </template>
+  </GHeader>
 
+  <main class="playground-container">
     <section class="component-section">
       <h2>GButton</h2>
       <div class="component-controls">
@@ -717,6 +713,35 @@ const modalShowCloseBtn = ref(true)
       </div>
     </section>
   </main>
+
+  <GFooter style="margin: 0 auto; padding: 2rem; width: 97.5vw">
+    <div class="footer-column">
+      <h4>О Проекте</h4>
+      <p>
+        GlassUI — это современная библиотека компонентов на Vue 3, вдохновленная
+        эстетикой macOS и Windows 11.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Навигация</h4>
+      <a href="#">under construction</a>
+      <a href="#">under construction</a>
+      <a href="https://github.com/GeorgeBlackbird/glass-ui" target="_blank"
+        >GitHub</a
+      >
+    </div>
+
+    <div class="footer-column">
+      <h4>Контакты</h4>
+      <p>dev.georgiy.drozdov@gmail.com</p>
+      <p>@maad_kid</p>
+    </div>
+
+    <template #copyright>
+      <span>&copy; 2025 George Blackbird</span>
+    </template>
+  </GFooter>
 </template>
 
 <style lang="scss">
@@ -859,6 +884,29 @@ header {
   &.active {
     color: #fff;
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.footer-column {
+  h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  p,
+  a {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #fff;
+    }
   }
 }
 </style>
